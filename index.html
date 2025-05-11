@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hotel Paradise</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: url(hotel_exterior-pica.png) no-repeat center center fixed;
+      background-size: cover;
+      color: #213448;
+    }
+
+    header {
+      background-color: #213448;
+      color: #ECEFCA;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #213448;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: top 0.3s ease;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    nav li {
+      display: inline-block;
+      margin: 0 1rem;
+    }
+
+    nav a {
+      color: #ECEFCA;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a.active {
+      border-bottom: 2px solid #ECEFCA;
+      padding-bottom: 2px;
+      color: #ffffff;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #213448;
+      text-align: center;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      text-align: center;
+    }
+
+    .content-section {
+      padding: 2rem;
+      margin: 1rem auto;
+      background-color: #94B4C1;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 1100px;
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    }
+
+    .content-section:hover {
+      background-color: rgba(148, 180, 193, 0.8);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #213448;
+      margin-bottom: 1rem;
+    }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .room {
+      background-color: #ECEFCA;
+      padding: 1rem;
+      border: 1px solid #547792;
+      border-radius: 5px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .room:hover {
+      transform: scale(1.1);
+    }
+
+    .room img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      transform: scale(1.1);
+    }
+
+    .restaurant {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .restaurant img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .restaurant img:hover {
+      transform: scale(1.03);
+    }
+    
+    #contact-form {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    #contact-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #547792;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    #contact-form button {
+      background-color: #547792;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    #contact-form button:hover {
+      background-color: #213448;
+      transform: scale(1.5);
+    }
+
+    footer {
+      background-color: #213448;
+      color: #ECEFCA;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #547792;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      background-color: #213448;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav li {
+        margin: 0.5rem 0;
+      }
+
+      .room-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .restaurant {
+        flex-direction: column;
+      }
+
+      #contact-form {
+        width: 100%;
+      }
+
+      #amenities .amenities-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #amenities ul {
+        width: 100%;
+        text-align: center;
+      }
+
+      #amenities .amenities-image {
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+
+    #amenities .amenities-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #amenities ul {
+      width: 60%;
+    }
+
+    #amenities .amenities-image {
+      width: 30%;
+    }
+
+    #amenities .amenities-image img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="logo"><h1><big> Hotel Paradise </big></h1></div>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#rooms">Rooms & Suites</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="#dining">Dining</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#bookings">Bookings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Hotel Paradise</h1>
+    <p>Where comfort meets elegance. Experience the perfect stay.</p>
+  </section>
+
+  <section id="introduction" class="content-section">
+    <h2>Introduction</h2>
+    <p>Welcome to Hotel Paradise, your premier destination for luxury and relaxation.</p>
+    <img src="hotel_exterior.jpeg" alt="Hotel Exterior" width="600" />
+  </section>
+
+  <section id="overview" class="content-section">
+    <h2>Overview</h2>
+    <p>Hotel Paradise boasts elegantly appointed rooms and suites, each designed for comfort.</p>
+    <ul>
+      <li>Free Wi-Fi</li>
+      <li>24-hour concierge</li>
+      <li>Daily housekeeping</li>
+      <li>On-site parking</li>
+    </ul>
+  </section>
+
+  <section id="rooms" class="content-section">
+    <h2>Rooms & Suites</h2>
+    <div class="room-grid">
+      <div class="room">
+        <img src="luxary_room.jpeg" alt="Deluxe Room">
+        <h3>Deluxe Room</h3>
+        <p>Stunning views and luxurious amenities.</p>
+        <a href="#" class="button">Book Now</a>
+      </div>
+      <div class="room">
+        <img src="Suite_room.jpeg" alt="Suite">
+        <h3>Suite</h3>
+        <p>Spacious suites with premium features.</p>
+        <a href="#" class="button">Book Now</a>
+      </div>
+      <div class="room">
+        <img src="Family_Room.jpg" alt="Family Room">
+        <h3>Family Room</h3>
+        <p>Perfect for families with extra space.</p>
+        <a href="#" class="button">Book Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="amenities" class="content-section">
+    <h2>Amenities</h2>
+    <div class="amenities-content">
+      <ul>
+        <li>Swimming Pool</li>
+        <li>Spa & Wellness Center</li>
+        <li>Fitness Center</li>
+        <li>Business Center</li>
+        <li>Meeting Rooms</li>
+        <li>Kids' Club</li>
+      </ul>
+      <div class="amenities-image">
+        <img src="pool.jpg" alt="Swimming Pool" />
+      </div>
+    </div>
+  </section>
+
+  <section id="dining" class="content-section">
+    <h2>Dining</h2>
+    <div class="restaurant">
+      <img src="hotel_restraurent.jpg" alt="Main Restaurant">
+      <h3>The Grand Dining Room</h3>
+      <p>Exquisite cuisine in a refined atmosphere.</p>
+    </div>
+    <div class="restaurant">
+      <img src="hotel_lobby.jpg" alt="Lobby Bar">
+      <h3>The Lobby Bar</h3>
+      <p>Relax with handcrafted cocktails in a stylish space.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="content-section">
+    <h2>Contact Us</h2>
+    <div class="contact-details">
+      <p><strong>Address:</strong> 123 Paradise Lane, Delhi, India</p>
+      <p><strong>Phone:</strong> +91 9170438454</p>
+      <p><strong>Email:</strong> contact@hotelparadise.com</p>
+      <p><strong>Follow Us:</strong>
+        <a href="#">Facebook</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">Twitter</a>
+      </p>
+    </div>
+    <form id="contact-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+  
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+  
+      <button type="submit">Submit</button>
+    </form>
+    <div id="form-message"></div>
+  </section>
+
+  <section id="bookings" class="content-section">
+    <h2>Bookings</h2>
+    <p>Here's a link to our bookings page:</p>
+    <a href="#" class="button">Book now</a>
+    <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Hotel Paradise. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Welcome popup
+    window.onload = () => {
+      setTimeout(() => {
+        alert("Welcome to Hotel Paradise! Explore our luxury stay options.");
+      }, 500);
+    };
+
+    // Form validation
+    document.addEventListener('DOMContentLoaded', function () {
+      const contactForm = document.getElementById('contact-form');
+      const formMessage = document.getElementById('form-message');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const message = document.getElementById('message').value;
+
+          if (!name || !email || !message) {
+            formMessage.textContent = 'Please fill in all fields.';
+            formMessage.style.color = 'red';
+            return;
+          }
+
+          formMessage.textContent = 'Thank you for your message!';
+          formMessage.style.color = 'green';
+          contactForm.reset();
+        });
+      }
+
+      // Active nav on scroll
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('nav ul li a');
+
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= sectionTop - 100) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+          }
+        });
+      });
+
+      // Auto-hide nav on scroll
+      let lastScrollTop = 0;
+      const nav = document.querySelector('nav');
+
+      window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+          nav.style.top = "-80px";
+        } else {
+          nav.style.top = "0";
+        }
+        lastScrollTop = scrollTop;
+      });
+    });
+  </script>
+</body>
+</html>
